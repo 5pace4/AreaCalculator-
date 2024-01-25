@@ -2,8 +2,8 @@
 
 This project is a simple area calculator built with Express.js, designed for learning purposes. The calculator allows users to calculate the area of different geometric shapes by selecting the polygon type (e.g., triangle, rectangle, circle) and providing the necessary input parameters. The calculation is performed on the server side, and the result is displayed on the client side.
 <p align="center">
-  <img src="images/preview1.png" alt="Calculator Preview" width="180"/> <img src="images/arrow.png" alt="Calculator Preview" width="200"/>
-  <img src="images/preview2.png" alt="Calculator Preview" width="180"/> <img src="images/arrow.png" alt="Calculator Preview" width="200"/>
+  <img src="images/preview1.png" alt="Calculator Preview" width="180"/> <img src="images/arrow.png" alt="Calculator Preview" width="120"/>
+  <img src="images/preview2.png" alt="Calculator Preview" width="180"/> <img src="images/arrow.png" alt="Calculator Preview" width="120"/>
   <img src="images/preview3.png" alt="Calculator Preview" width="180"/>
 </p>
 
