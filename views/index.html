@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AreaCalculator</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator-container {
+        padding-left: 20px;
+        height: 350px;
+        width: 300px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        background-color: rgb(135, 206, 250);
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator-container">
+    <h1 style="text-align: center;">AreaCalculator</h1>
+    <br>
+    <label for="polygonType">Select Polygon Type:</label>
+    <select id="polygonType" name="polygonType" onchange="showFields()">
+      <option value="select">select</option>
+      <option value="triangle">Triangle</option>
+      <option value="rectangle">Rectangle</option>
+      <option value="circle">Circle</option>
+    </select>
+    <br><br>
+    <div id="triangleFields" class="hidden">
+      <label for="triangleBase">Base:</label>
+      <input type="number" id="triangleBase" name="base" placeholder="Enter base">
+      <br><br>
+      <label for="triangleHeight">Height:</label>
+      <input type="number" id="triangleHeight" name="height" placeholder="Enter height">
+    </div>
+  
+    <div id="rectangleFields" class="hidden">
+      <label for="rectangleLength">Length:</label>
+      <input type="number" id="rectangleLength" name="length" placeholder="Enter length">
+      <br><br>
+      <label for="rectangleWidth">Width:</label>
+      <input type="number" id="rectangleWidth" name="width" placeholder="Enter width">
+    </div>
+    
+  
+    <div id="circleFields" class="hidden">
+      <label for="circleRadius">Radius:</label>
+      <input type="number" id="circleRadius" name="radius" placeholder="Enter radius">
+    </div>
+  
+    <br>
+    <button onclick="calculate()">Calculate</button>
+    <hr>
+    <div id="result" class="hidden">
+      <h2>Result:</h2>
+      <p id="areaResult" style="border: none;"></p>
+    </div>
+  </div>
+
+  <script>
+    function showFields() {
+      const polygonType = document.getElementById("polygonType").value;
+
+      document.getElementById("triangleFields").classList.add("hidden");
+      document.getElementById("rectangleFields").classList.add("hidden");
+      document.getElementById("circleFields").classList.add("hidden");
+      document.getElementById(`${polygonType}Fields`).classList.remove("hidden");
+      document.getElementById("result").classList.add("hidden");
+    }
+
+    async function calculate() {
+
+      fetch('/areacalculator', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          polygonType: document.getElementById("polygonType").value,
+          base: document.getElementById("triangleBase").value,
+          height: document.getElementById("triangleHeight").value,
+          length: document.getElementById("rectangleLength").value,
+          width: document.getElementById("rectangleWidth").value,
+          radius: document.getElementById("circleRadius").value,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        const type = document.getElementById('polygonType').value;
+        if(type != "select")document.getElementById("areaResult").textContent = `The Area of the ${type}: ${data.area} sq unit.`;
+        else document.getElementById("areaResult").textContent = "Select a valid type!";
+        document.getElementById("result").classList.remove("hidden");
+      });
+    }
+  </script>
+
+</body>
+</html>
